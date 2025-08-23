@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Streaming EagleEyes Detection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="/" class="flex-shrink-0 flex items-center text-white font-bold text-lg">
+                        EagleEyes
+                    </a>
+                </div>
+                <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <ul class="flex space-x-4">
+                        <!--li><a href="/" class="text-white hover:text-gray-200">Beranda</a></li-->
+
+                        {% if session.get('username') %}
+                        <li><a href="/arsip" class="text-white hover:text-gray-200">Arsip</a></li>
+                        <li class="relative group">
+                            <button class="text-white hover:text-gray-200 focus:outline-none">
+                                {{ session['username'] }}
+                            </button>
+                            <ul class="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                                <li><a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li><a href="{{ url_for('register') }}" class="text-white hover:text-gray-200">Registrasi</a></li>
+                        <li><a href="{{ url_for('login') }}" class="text-white hover:text-gray-200">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="max-w-7xl mx-auto px-4 mt-4">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+              {% for message in messages %}
+                <div>{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Konten Halaman -->
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

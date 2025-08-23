@@ -1,0 +1,7 @@
+Flask==2.2.5
+flask-mysqldb==1.0.1
+opencv-python==4.5.5.64
+numpy==1.24.4
+mysqlclient==2.1.1
+flask_sqlalchemy
+mysql-connector-python

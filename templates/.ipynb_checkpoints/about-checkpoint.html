@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow p-4">
+    <h3 class="mb-3">Tentang Aplikasi</h3>
+    <p>
+        Aplikasi ini merupakan alat analisis sentimen sederhana yang dirancang untuk mengklasifikasikan opini atau komentar menjadi tiga kategori:
+        <span class="text-success"><strong>Positif</strong></span>, 
+        <span class="text-danger"><strong>Negatif</strong></span>, dan 
+        <strong>Netral</strong>.
+    </p>
+    <p>
+        Proses analisis dilakukan menggunakan pustaka <strong>TextBlob</strong>, yang bekerja berdasarkan <em>Natural Language Processing (NLP)</em> untuk bahasa Inggris.
+    </p>
+    <p>
+        Cocok digunakan untuk:
+        <ul>
+            <li>Menganalisis komentar atau ulasan pelanggan</li>
+            <li>Memahami opini publik terhadap suatu produk atau layanan</li>
+            <li>Proyek riset sederhana yang berkaitan dengan teks</li>
+        </ul>
+    </p>
+    <p>
+        Hasil analisis akan disimpan dan dapat dilihat kembali melalui menu <strong>Riwayat</strong>, serta difilter berdasarkan tanggal.
+    </p>
+    <p>
+        Aplikasi ini dikembangkan sebagai proyek pembelajaran dan dapat diperluas dengan bahasa Indonesia, analisis multibahasa, atau algoritma machine learning lanjutan di masa depan.
+    </p>
+</div>
+{% endblock %}

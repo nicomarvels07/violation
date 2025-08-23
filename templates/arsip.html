@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Detail CCTV</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Arsip Pelanggaran Kendaraan</h1>
+
+    <div class="overflow-x-auto">
+        <table id="arsipTable" class="min-w-full border border-gray-300 rounded">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="px-4 py-2">No</th>
+                    <th class="px-4 py-2">CCTV</th>
+                    <th class="px-4 py-2">Waktu</th>
+                    <th class="px-4 py-2">Plat Number</th>
+                    <th class="px-4 py-2">Vehicle Type</th>
+                    <th class="px-4 py-2">Violation</th>
+                    <th class="px-4 py-2">Vehicle Speed</th>
+                    <th class="px-4 py-2">Foto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr class="text-center border-b">
+                    <td class="px-2 py-1">{{ log[0] }}</td>
+                    <td class="px-2 py-1">Cam {{ log[1] }}</td>
+                    <td class="px-2 py-1">{{ log[2] }}</td>
+                    <td class="px-2 py-1">{{ log[3] }}</td>
+                    <td class="px-2 py-1">{{ log[4] }}</td>
+                    <td class="px-2 py-1">{{ log[5] }}</td>
+                    <td class="px-2 py-1">{{ log[6] }}</td>
+                    <td class="px-2 py-1">
+                        {% if log[7] %}
+                        <img src="{{ url_for('static', filename=log[7]) }}" alt="snapshot" class="w-24 rounded">
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ url_for('index') }}" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">← Kembali ke Dashboard</a>
+    </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+      $('#arsipTable').DataTable({
+          "pageLength": 10,
+          "lengthMenu": [5, 10, 25, 50, 100],
+          "language": {
+              "search": "Cari:",
+              "lengthMenu": "Tampilkan _MENU_ data per halaman",
+              "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+              "paginate": {
+                  "previous": "←",
+                  "next": "→"
+              }
+          }
+      });
+  });
+</script>
+</body>
+</html>
+{% endblock %}

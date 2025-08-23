@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Detail CCTV</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.tailwindcss.min.css">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+</head>
+<body class="bg-gray-100">
+
+  <div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Detail CCTV {{ cam_id }}</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Video di kiri -->
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h2 class="text-lg font-semibold mb-2">Live Camera</h2>
+        <img src="{{ url_for('detail_feed', cam_id=cam_id) }}" 
+             class="w-full h-auto rounded-lg border" alt="CCTV Stream">
+      </div>
+
+      <!-- Tabel di kanan -->
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h2 class="text-lg font-semibold mb-2">Data Pelanggaran Kendaraan</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full border border-gray-200 text-sm" id="vehicleTable">
+          <thead class="bg-gray-800 text-white">
+              <tr>
+                  <th>Plat Number</th>
+                  <th>Vehicle Type</th>
+                  <th>Violation</th>
+                  <th>Vehicle Speed</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for log in logs %}
+              <tr class="border-b">
+                  <td class="px-2 py-1 text-center">{{ log[3] }}</td>
+                  <td class="px-2 py-1 text-center">{{ log[4] }}</td>
+                  <td class="px-2 py-1 text-center">{{ log[5] }}</td>
+                  <td class="px-2 py-1 text-center">{{ log[6] }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div><br>
+       
+    <div class="mt-4">
+        <a href="{{ url_for('index') }}" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">← Kembali ke Dashboard</a>
+    </div>
+  </div>
+  
+  <!-- Init DataTables -->
+  <script>
+    $(document).ready(function () {
+        $('#vehicleTable').DataTable({
+            pageLength: 5,
+            lengthMenu: [5, 10, 20, 50],
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                paginate: {
+                    previous: "Sebelumnya",
+                    next: "Berikutnya"
+                }
+            }
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Tambahkan Tailwind CDN di base.html atau langsung di sini -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="w-full p-2">
+    <!-- Header Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-5 text-center">
+        <img src="{{ url_for('static', filename='eagle-eyes.png') }}" alt="eagle-eyes" class="w-24 max-w-sm h-auto">
+        <div>
+            <h3 class="text-xl font-bold">Live Streaming EagleEyes</h3>
+            <h3 class="text-lg font-semibold">Deteksi Pelanggaran Berkendara Real-Time</h3>
+            <p>Jam: <span id="timeIndicator" class="font-bold">00:00:00</span> WIB</p>
+        </div>
+        <img src="{{ url_for('static', filename='eagle-eye-logo.png') }}" alt="eagle-eye" class="w-24 max-w-sm h-auto">
+    </div>
+
+    <!-- CCTV Video Grid 2 kolom -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
+        {% for cam_id in range(1,5) %}
+        <div class="relative w-full">
+            <a href="{{ url_for('detail', cam_id=cam_id) }}">
+                <img src="{{ url_for('video_feed', cam_id=cam_id) }}" alt="CCTV {{ cam_id }} Stream"
+                     class="w-full border-4 border-gray-300 rounded-xl shadow-lg transition-transform duration-300 hover:scale-105">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-10 text-gray-500 text-sm text-center">
+        &copy; 2025 EagleEyes
+    </footer>
+</div>
+
+<script>
+    function updateObjectCount() {
+        fetch('/object_count')
+            .then(response => response.json())
+            .then(data => {
+                const curDate = new Date();
+                document.getElementById('timeIndicator').textContent =
+                    `${curDate.getHours().toString().padStart(2, '0')}:${curDate.getMinutes().toString().padStart(2, '0')}:${curDate.getSeconds().toString().padStart(2, '0')}`;
+            })
+            .catch(error => console.error('Error fetching object count:', error));
+    }
+    setInterval(updateObjectCount, 1000);
+</script>
+{% endblock %}

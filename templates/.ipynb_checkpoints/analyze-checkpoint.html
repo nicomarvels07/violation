@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow p-4">
+    <h3>Sentiment Analisis</h3>
+    <form action="{{ url_for('analyze') }}" method="POST">
+        <div class="form-group">
+            <label for="text">Teks untuk dianalisis:</label>
+            <textarea class="form-control" name="text" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Analisis</button>
+    </form>
+
+    {% if result_blob or result_vader %}
+    <div class="mt-4">
+        <h5>Hasil Analisis:</h5>
+        {% if result_blob %}
+            <p><strong>TextBlob:</strong> {{ result_blob }}</p>
+        {% endif %}
+        {% if result_vader %}
+            <p><strong>VADER:</strong> {{ result_vader }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
