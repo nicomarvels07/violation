@@ -1,0 +1,22 @@
+train: C:/Users/EagleEyes/belajar/dataset/images/train
+val: C:/Users/EagleEyes/belajar/dataset/images/val
+
+nc: 14
+names:
+  - car
+  - driver_buckled
+  - driver_unbuckled
+  - driver_unknown
+  - kaca
+  - motor_1_helmet
+  - motor_1_nohelmet
+  - motor_2_helmet
+  - motor_2_nohelmet
+  - motor_more_2
+  - passanger_buckled
+  - passanger_unbuckled
+  - passanger_unknown
+  - plat_nomor
+
+
+
